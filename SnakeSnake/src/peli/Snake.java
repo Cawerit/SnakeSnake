@@ -7,19 +7,21 @@ import java.util.ArrayList;
  */
 public class Snake {
 
-	private ArrayList<Pala> palat;
+	private ArrayList<Koordinaatti> palat;
+	private ArrayList<Pala> omenat;
 	private Vari vari;
+	private Suunta suunta;
 	
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta){
-		palat = new ArrayList<Pala>();
-		System.out.println("swag");
+		this.suunta = suunta;
+		palat = new ArrayList<Koordinaatti>();
 		for(int i=0; i<pituus; i++){
 			
 			Koordinaatti koordinaatti = new Koordinaatti( 
 					aloituskohta.getX() + i * suunta.getXIncrease(),
 					aloituskohta.getY() + i * suunta.getYIncrease());
 			
-			palat.add(new Pala(koordinaatti) );
+			palat.add(koordinaatti);
 			
 		}
 	}
