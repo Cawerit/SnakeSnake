@@ -12,7 +12,7 @@ public class Snake {
 	
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta){
 		palat = new ArrayList<Pala>();
-		System.out.println("yolo");
+		System.out.println("swag");
 		for(int i=0; i<pituus; i++){
 			
 			Koordinaatti koordinaatti = new Koordinaatti( 
