@@ -6,7 +6,7 @@ package peli;
  */
 public enum Vari {
 	
-	VALKOINEN(255, 255, 255);
+	VALKOINEN(255, 255, 255), VIHREA(0, 255, 0), SININEN(0, 0, 255);
 	
 	private int red;
 	private int green;
@@ -16,6 +16,15 @@ public enum Vari {
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
+	}
+	public int getRed(){
+		return red;
+	}
+	public int getGreen(){
+		return green;
+	}
+	public int getBlue(){
+		return blue;
 	}
 	
 }

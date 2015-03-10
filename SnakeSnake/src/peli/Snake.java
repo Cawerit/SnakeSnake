@@ -8,11 +8,10 @@ import java.util.ArrayList;
 public class Snake {
 
 	private ArrayList<Pala> palat;
-	private Vari vari;
 	
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta){
 		palat = new ArrayList<Pala>();
-		System.out.println("lol");
+		System.out.println("hahaa");
 		for(int i=0; i<pituus; i++){
 			
 			Koordinaatti koordinaatti = new Koordinaatti( 
