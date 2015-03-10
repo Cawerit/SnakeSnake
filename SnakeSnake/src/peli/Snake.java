@@ -15,6 +15,7 @@ public class Snake {
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta){
 		this.suunta = suunta;
 		palat = new ArrayList<Koordinaatti>();
+		System.out.println("snake tehdään");
 		for(int i=0; i<pituus; i++){
 			
 			Koordinaatti koordinaatti = new Koordinaatti( 
