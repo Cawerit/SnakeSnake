@@ -13,4 +13,8 @@ public class Koordinaatti {
 	public int getX(){ return X; }
 	public int getY(){ return Y; }
 	
+	public String toString(){
+		return "[" + X + ", " + Y + "]";
+	}
+	
 }
