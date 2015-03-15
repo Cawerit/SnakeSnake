@@ -1,5 +1,6 @@
 package peli;
 import java.util.ArrayList;
+import java.awt.Color;
 
 /**
  * Luokka kuvaa yksitt‰ist‰ k‰‰rmett‰
@@ -8,12 +9,13 @@ import java.util.ArrayList;
 public class Snake {
 
 	private ArrayList<Koordinaatti> palat;
-	private int omenat;
-	private Vari vari;
+	private int omenat = 0;
+	private Color vari;
 	private Suunta suunta;
 	
-	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta){
+	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta, Color vari){
 		this.suunta = suunta;
+		this.vari = vari;
 		palat = new ArrayList<Koordinaatti>();
 		
 		for(int i=0; i<pituus; i++){
@@ -33,7 +35,8 @@ public class Snake {
 	
 	//Asettaa suunnan, palauttaa false jos suunta sama kuin ennen (jolloin k‰‰rmeen voi tappaa)
 	public boolean setSuunta(Suunta suunta){
-		boolean palautettava = this.suunta != suunta;
+		//palautettava arvo on tieto siit‰, k‰‰ntyikˆ snake juuri ymp‰ri
+		boolean palautettava = !this.suunta.isOpposite(suunta);
 		this.suunta = suunta;
 		return palautettava;
 	}
@@ -57,5 +60,9 @@ public class Snake {
 	
 	public Koordinaatti getPaa(){ 
 		return palat.get(palat.size()-1); 
+	}
+	
+	public Color getVari(){
+		return vari;
 	}
 }
