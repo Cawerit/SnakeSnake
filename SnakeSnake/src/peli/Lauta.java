@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class Lauta extends JPanel implements ActionListener{
 	
-	public static final int[] RUUDUT = new int[]{30, 30};
-	public static final int RUUDUN_KOKO = 20;
+	public static final int[] RUUDUT = new int[]{40, 40};
+	public static final int RUUDUN_KOKO = 15;
 	public static final double FPS = 0.7;
 	
 	private static final Color OMENAN_VARI = Color.green;
@@ -86,8 +86,8 @@ public class Lauta extends JPanel implements ActionListener{
 		
 		Koordinaatti p1Paa = pelaaja1.getPaa();
 		Koordinaatti p2Paa = pelaaja2.getPaa();
-		boolean p1Kuollut = (p1Paa.collides(RUUDUT) || p1Paa.collides(0, 0) || p1Paa.collides(pelaaja2.getKoordinaatit()));
-		boolean p2Kuollut = (p2Paa.collides(RUUDUT) || p2Paa.collides(0, 0) || p2Paa.collides(pelaaja1.getKoordinaatit()));
+		boolean p1Kuollut = (p1Paa.collides(RUUDUT[0]+1, RUUDUT[1]+1) || p1Paa.collides(-1, -1) || p1Paa.collides(pelaaja2.getKoordinaatit()));
+		boolean p2Kuollut = (p2Paa.collides(RUUDUT[0]+1, RUUDUT[1]+1) || p2Paa.collides(-1, -1) || p2Paa.collides(pelaaja1.getKoordinaatit()));
 		
 		if(p1Kuollut)
 			lopetaPeli( p2Kuollut ? null : pelaaja2 );
