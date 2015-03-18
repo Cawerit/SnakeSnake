@@ -1,5 +1,6 @@
 package peli;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.Color;
 
 /**
@@ -12,11 +13,13 @@ public class Snake {
 	private int omenat = 0;
 	private Color vari;
 	private Suunta suunta;
+	public boolean suuntaAsetettu;
 	
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta, Color vari){
 		this.suunta = suunta;
 		this.vari = vari;
 		palat = new ArrayList<Koordinaatti>();
+		suuntaAsetettu = false;
 		
 		for(int i=0; i<pituus; i++){
 			
@@ -34,11 +37,10 @@ public class Snake {
 	}
 	
 	//Asettaa suunnan, palauttaa false jos suunta sama kuin ennen (jolloin käärmeen voi tappaa)
-	public boolean setSuunta(Suunta suunta){
-		//palautettava arvo on tieto siitä, kääntyikö snake juuri ympäri
-		boolean palautettava = !this.suunta.isOpposite(suunta);
+	public void setSuunta(Suunta suunta){
+		if(suuntaAsetettu || this.suunta.isOpposite(suunta)) return;
 		this.suunta = suunta;
-		return palautettava;
+		suuntaAsetettu = true;
 	}
 	
 	private void siirry(){
@@ -62,7 +64,20 @@ public class Snake {
 		return palat.get(palat.size()-1); 
 	}
 	
+	private List<Koordinaatti> getKroppa(){
+		return getKoordinaatit().subList(0, palat.size()-1);
+	}
+	
 	public Color getVari(){
 		return vari;
+	}
+	
+	public boolean kuollut(Snake toinen){
+		Koordinaatti paa = getPaa();
+		return paa.collides(Lauta.RUUDUT[0]+1, Lauta.RUUDUT[1]+1) 
+				|| toinen.getKoordinaatit().size() - palat.size() >= Peli.VOITTO_PISTEET
+				|| paa.collides(-1, -1) 
+				|| paa.collides(toinen.getKoordinaatit())
+				|| paa.collides(getKroppa());
 	}
 }
