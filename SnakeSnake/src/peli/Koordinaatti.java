@@ -58,11 +58,11 @@ public class Koordinaatti {
 	
 	/**
 	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun X- TAI Y-koordinaattien rivin kanssa
-	 * Esimerkiksi: 
+	 * <br>Esimerkiksi: 
 	 * <br><code>
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // => true
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // => true
-	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // => false
+	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // => true	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // => true	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // => false	<br>
 	 * </code>
 	 * 
 	 * @param X x-arvo, johon t‰m‰n koordinaatin x-arvoa verrataan
@@ -75,11 +75,11 @@ public class Koordinaatti {
 	}
 	/**
 	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun koordinaatin kanssa
-	 * Esimerkiksi: 
+	 * <br>Esimerkiksi: 
 	 * <br><code>
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 0 ) ); // => true
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 1 ) ); // => false
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 2, 1 ) ); // => false
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 0 ) ); // => true 	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 1 ) ); // => false <br>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 2, 1 ) ); // => false	<br>
 	 * </code>
 	 * 
 	 * @param toinen Toinen koordinaatti, johon t‰m‰n koordinaatin arvoja verrataan
