@@ -19,7 +19,7 @@ public class Lauta extends JPanel implements ActionListener{
 	private Snake[] pelaajat;
 	
 	private Koordinaatti omena;
-	private Timer loop;
+	private Timer loop;//Ajastin
 	private Font fontti;
 	private Color fonttiVari;
 	

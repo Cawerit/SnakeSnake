@@ -57,27 +57,47 @@ public class Koordinaatti {
 	}
 	
 	/**
-	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun X- tai Y-koordinaattien rivin kanssa
+	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun X- TAI Y-koordinaattien rivin kanssa
 	 * Esimerkiksi: 
-	 * <code>
+	 * <br><code>
 	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // => true
 	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // => true
 	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // => false
 	 * </code>
 	 * 
-	 * @param XY
-	 * @return
+	 * @param X x-arvo, johon t‰m‰n koordinaatin x-arvoa verrataan
+	 * @param Y y-arvo, johon t‰m‰n koordinaatin y-arvoa verrataan
+	 * @return Tieto siit‰, onko nykyinen koordinaatti p‰‰llekk‰in annettujen koordinaattien kanssa
+	 * 
 	 */
-	public boolean collides(int... XY){
-		int n = XY.length;
-		return ( (n>=1 && getX() == XY[0]) || (n>=2 && getY() == XY[1]) );
+	public boolean collides(int X, int Y){
+		return (getX() == X || getY() == Y );
 	}
-	public boolean collides(Koordinaatti b){
-		return ( getX() == b.getX() && getY() == b.getY() );
+	/**
+	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun koordinaatin kanssa
+	 * Esimerkiksi: 
+	 * <br><code>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 0 ) ); // => true
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 1 ) ); // => false
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 2, 1 ) ); // => false
+	 * </code>
+	 * 
+	 * @param toinen Toinen koordinaatti, johon t‰m‰n koordinaatin arvoja verrataan
+	 * @return Tieto siit‰, onko nykyinen koordinaatti p‰‰llekk‰in annetun koordinaatin kanssa
+	 * 
+	 */
+	public boolean collides(Koordinaatti toinen){
+		return ( getX() == toinen.getX() && getY() == toinen.getY() );
 	}
-	public boolean collides(Collection<Koordinaatti> b){
-		
-		for(Koordinaatti k : b){
+	/**
+	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in jonkun annetuista koordinaateista kanssa.
+	 * 
+	 * @param toinen Lista toisista koordinaateista, joihin t‰m‰n koordinaatin arvoja verrataan
+	 * @return Tieto siit‰, onko nykyinen koordinaatti p‰‰llekk‰in jonkin annetuista koordinaateista kanssa
+	 * 
+	 */
+	public boolean collides(Collection<Koordinaatti> toinen){
+		for(Koordinaatti k : toinen){
 			if(collides(k)) return true;
 		}
 		return false;
