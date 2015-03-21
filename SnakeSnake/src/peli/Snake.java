@@ -4,14 +4,27 @@ import java.util.List;
 import java.awt.Color;
 
 /**
- * Luokka kuvaa yksitt‰ist‰ k‰‰rmett‰
+ * Luokka kuvaa yksitt‰ist‰ k‰‰rmett‰ (pelaajaa)
  *
  */
 public class Snake {
-
+	
+	/**
+	 * Lista pelaajan liitoskohtien koordinaateista
+	 */
 	private ArrayList<Koordinaatti> palat;
+	/**
+	 * V‰ri, jolla pelaaja piirret‰‰n ruudulle
+	 */
 	private Color vari;
+	/**
+	 * Pelaajan senhetkinen suunta, jota k‰ytet‰‰n m‰‰ritt‰m‰‰n mihin pelaajan p‰‰ siirtyy seuraavaksi
+	 */
 	private Suunta suunta;
+	/**
+	 * Kertoo, onko pelaajan suunta asetettu kertaalleen t‰ll‰ p‰ivityskierroksella
+	 * @see setSuunta(Suunta)
+	 */
 	public boolean suuntaAsetettu;
 	
 	public Snake(Koordinaatti aloituskohta, int pituus, Suunta suunta, Color vari){
@@ -83,7 +96,7 @@ public class Snake {
 	 * Luo pelaajalle uuden liitoskohdan, "p‰‰n", jonka sijainti laudalla riippuu edellisest‰ p‰‰n sijainnista
 	 * ja pelaajan suunnasta. T‰ten pelaaja kasvaa yhden "askeleen" laudalla.
 	 */
-	private void siirry(){
+	public void kasva(){//Liikkuminen silloin kun k‰‰rme kasvaa samalla
 		Koordinaatti vanhaPaa = getPaa();
 		Koordinaatti uusiPaa = new Koordinaatti( 
 				vanhaPaa.getX() + suunta.getXIncrease(),
@@ -91,24 +104,20 @@ public class Snake {
 		palat.add(uusiPaa);
 	}
 	/**
-	 * Metodi kutsuu metodia siirry() ja poistaa pelaajan viimeisen palan. T‰ten pelaaja liikkuu yhden askeleen laudalla.
+	 * Metodi kutsuu metodia kasva() ja poistaa pelaajan viimeisen palan. T‰ten pelaaja liikkuu yhden askeleen laudalla.
 	 */
 	public void liiku(){//Liikkuminen silloin kun ei tarvitse kasvattaa k‰‰rmett‰
-		siirry(); 
+		kasva(); 
 		palat.remove(0);
 	}
-	/**
-	 * Metodi kutsuu metodia siirry() eik‰ tee lis‰toimenpiteit‰. T‰ten pelaaja liikkuu yhden askeleen laudalla. Ja kasvaa samalla.
-	 */
-	public void kasva(){//Liikkuminen silloin kun k‰‰rme kasvaa samalla
-		siirry();
-	}
+	
 	/**
 	 * @return Pelaajan palalistan viimeinen pala, eli "p‰‰n" koordinaatti.
 	 */
 	public Koordinaatti getPaa(){ 
 		return palat.get(palat.size()-1); 
 	}
+	
 	/**
 	 * @return Lista kaikista pelaajan paloista, lukuunottamatta "p‰‰t‰"
 	 */

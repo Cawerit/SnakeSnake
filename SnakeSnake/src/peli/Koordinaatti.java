@@ -60,14 +60,14 @@ public class Koordinaatti {
 	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun X- TAI Y-koordinaattien rivin kanssa
 	 * <br>Esimerkiksi: 
 	 * <br><code>
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // => true	<br>
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // => true	<br>
-	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // => false	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // true		<br>
+	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // true		<br>
+	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // false	<br>
 	 * </code>
 	 * 
 	 * @param X x-arvo, johon t‰m‰n koordinaatin x-arvoa verrataan
 	 * @param Y y-arvo, johon t‰m‰n koordinaatin y-arvoa verrataan
-	 * @return Tieto siit‰, onko nykyinen koordinaatti p‰‰llekk‰in annettujen koordinaattien kanssa
+	 * @return Tieto siit‰, onko nykyinen koordinaatti annetulla alueella
 	 * 
 	 */
 	public boolean collides(int X, int Y){
@@ -77,9 +77,9 @@ public class Koordinaatti {
 	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun koordinaatin kanssa
 	 * <br>Esimerkiksi: 
 	 * <br><code>
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 0 ) ); // => true 	<br>
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 1 ) ); // => false <br>
-	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 2, 1 ) ); // => false	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 0 ) ); // true 	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 0, 1 ) ); // false 	<br>
+	 * (new Koordinaatti( 0, 0 )).collides( new Koordinaatti( 2, 1 ) ); // false	<br>
 	 * </code>
 	 * 
 	 * @param toinen Toinen koordinaatti, johon t‰m‰n koordinaatin arvoja verrataan
@@ -90,14 +90,14 @@ public class Koordinaatti {
 		return ( getX() == toinen.getX() && getY() == toinen.getY() );
 	}
 	/**
-	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in jonkun annetuista koordinaateista kanssa.
+	 * Tarkistaa, onko t‰m‰ koordinaatti samassa kohtaa kuin jokin annetuista koordinaateista.
 	 * 
-	 * @param toinen Lista toisista koordinaateista, joihin t‰m‰n koordinaatin arvoja verrataan
-	 * @return Tieto siit‰, onko nykyinen koordinaatti p‰‰llekk‰in jonkin annetuista koordinaateista kanssa
+	 * @param toiset Lista toisista koordinaateista, joihin t‰m‰n koordinaatin arvoja verrataan
+	 * @return Tieto siit‰, p‰teekˆ jollekin annetuista koordinaateista this.getX() == toinen.getX() && this.getY() == toinen.getY()
 	 * 
 	 */
-	public boolean collides(Collection<Koordinaatti> toinen){
-		for(Koordinaatti k : toinen){
+	public boolean collides(Collection<Koordinaatti> toiset){
+		for(Koordinaatti k : toiset){
 			if(collides(k)) return true;
 		}
 		return false;

@@ -10,9 +10,25 @@ import java.util.ArrayList;
 
 public class Lauta extends JPanel implements ActionListener{
 	
-	public static final int[] RUUDUT = new int[]{40, 40};
+	/**
+	 * M‰‰ritt‰‰ pelialueen koon koordinaattien m‰‰r‰n‰. T‰t‰ muuttamalla voi suurentaa pelialueen kokoa.
+	 */
+	public static final int[] RUUDUT = new int[]{45, 45};
+	
+	
+	/**
+	 * M‰‰ritt‰‰, kuinka monta pikseli‰ jokainen koordinaatti on kooltaan piirrettyn‰ ruudulle.
+	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka suurena pelialue piirret‰‰n.
+	 */
 	public static final int RUUDUN_KOKO = 15;
+	
+	
+	/**
+	 * M‰‰ritt‰‰, kuinka monta kertaa sekunnissa pelin tila p‰ivitet‰‰n ja kuva uudelleenpiirret‰‰n ruudulle.
+	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka nopeasti peli kulkee.
+	 */
 	public static final double FPS = 10;
+	
 	
 	private static final Color OMENAN_VARI = Color.green;
 	
@@ -23,10 +39,12 @@ public class Lauta extends JPanel implements ActionListener{
 	private Font fontti;
 	private Color fonttiVari;
 	
-	private boolean kaynnissa = false;
 	private String[] viesti;
 	private int[] pisteet;
 	
+	/**
+	 * M‰‰ritt‰‰, mink‰ kokoisia pelaajat ovat pelin alkaessa.
+	 */
 	private static final int aloitusKoko = 10;
 		
 	/**
@@ -58,16 +76,30 @@ public class Lauta extends JPanel implements ActionListener{
 	 * 
 	 */
 	public void aloitaPeli(){
-		kaynnissa = true;
-		pelaajat[0] = new Snake( new Koordinaatti(0, 10), aloitusKoko, Suunta.OIKEA, Color.red);
-		pelaajat[1] = new Snake( new Koordinaatti(RUUDUT[0], 10), aloitusKoko, Suunta.VASEN, Color.blue);
 		
-		viesti[0] = null;
-		naytaTilanne();
+		//Luodaan pelaajat. Pelaajien parametrej‰ muuttamalla voi vaikuttaa pelin aloitustilanteeseen
+		//ja pelaajien v‰riin
+		
+		pelaajat[0] = new Snake( 
+				new Koordinaatti(0, RUUDUT[1]/2), //Pelaajan 1 aloituskohta on vasemmassa reunassa kent‰n puolessa v‰liss‰
+				aloitusKoko,
+				Suunta.OIKEA,				 	  //Pelaaja1 l‰htee liikkeelle oikealle, kohti ikkunan vasenta laitaa
+				Color.red						  //Pelaajan 1 v‰ri on punainen
+				);
+		
+		pelaajat[1] = new Snake(
+				new Koordinaatti(RUUDUT[0], RUUDUT[1]/2), //Pelaajan 2 aloituskohta on oikeassa reunassa kent‰n puolessa v‰liss‰
+				aloitusKoko,
+				Suunta.VASEN,
+				Color.blue
+				);
+		
+		viesti[0] = null; //M‰‰ritet‰‰n, ett‰ kent‰n yl‰laidassa ei n‰ytet‰ viesti‰,
+		naytaTilanne();	  //M‰‰ritet‰‰n, ett‰ kent‰n alalaidassa n‰ytet‰‰n pelikierroksen pistetilanne
 
-		arvoOmena();
+		arvoOmena();	  //Arvotaan omenalle uusi sijainti
 		
-		loop.start();
+		loop.start();     //K‰ynnistet‰‰n pelin loop (ajastin, joka kutsuu actionPerformed-metodia)
 		
 	}
 	
@@ -78,7 +110,7 @@ public class Lauta extends JPanel implements ActionListener{
 	 * @param voittaja Kierroksen voittaja, mik‰ kirjoitetaan ruudulle. Jos null, pelin ilmoitetaan p‰‰ttyneen tasapeliin.
 	 */
 	private void lopetaPeli(Snake voittaja){
-		kaynnissa = false;
+		
 		loop.stop();
 		
 		if(voittaja == null){
@@ -107,14 +139,14 @@ public class Lauta extends JPanel implements ActionListener{
 		Snake pelaaja1 = pelaajat[0];
 		Snake pelaaja2 = pelaajat[1];
 		
-		pelaaja1.suuntaAsetettu = false;
+		pelaaja1.suuntaAsetettu = false;//Pelaajat voivat taas vaihtaa suuntaa
 		pelaaja2.suuntaAsetettu = false;
 		
 		//Liikutetaan pelaajaa 1, mik‰li pelaaja on omenan p‰‰ll‰, pelaaja kasvaa samalla
 		if(omena.collides(pelaaja1.getPaa())){
 			arvoOmena();
 			pelaaja1.kasva();
-			naytaTilanne();
+			naytaTilanne(); //p‰ivitet‰‰n alalaidassa n‰kyv‰ viesti
 		}
 		else pelaaja1.liiku();
 		
@@ -125,10 +157,10 @@ public class Lauta extends JPanel implements ActionListener{
 		}
 		else pelaaja2.liiku();
 		
-		if(pelaaja1.kuollut(pelaaja2))//Jos pelaaja 1 on kuollut
-			lopetaPeli( pelaaja2.kuollut(pelaaja1) ? null : pelaaja2 );
-			//Voittaja on pelaaja2, tai null, jos myˆs pelaaja 2 on kuollut
-		else if(pelaaja2.kuollut(pelaaja1))//Tai jos vain pelaaja 2 on kuollut, pelaaja 1 voittaa
+		if(pelaaja1.kuollut(pelaaja2))										//Jos pelaaja 1 on kuollut, voittaja on
+			lopetaPeli( pelaaja2.kuollut(pelaaja1) ? null : pelaaja2 );     //pelaaja2, tai null, jos myˆs pelaaja 2 on kuollut
+		
+		else if(pelaaja2.kuollut(pelaaja1))		//Tai jos vain pelaaja 2 on kuollut, pelaaja 1 voittaa
 			lopetaPeli( pelaaja1 );
 	
 		repaint();
@@ -142,6 +174,7 @@ public class Lauta extends JPanel implements ActionListener{
 	 */
 	private void naytaTilanne(){
 		fonttiVari = Color.white;
+		//Pelaajan pisteet on sen pituuden kasvu pelin aloituksen j‰lkeen
 		viesti[1] = (pelaajat[0].getKoordinaatit().size()-aloitusKoko) + " - " + (pelaajat[1].getKoordinaatit().size()-aloitusKoko);
 	}
 	
@@ -154,12 +187,15 @@ public class Lauta extends JPanel implements ActionListener{
 	public void paintComponent(Graphics grafiikka){
 		super.paintComponent(grafiikka);
 		
+		// Piirret‰‰n omena ruudulle
 		grafiikka.setColor( OMENAN_VARI );
 		grafiikka.fillOval(omena.getX() * RUUDUN_KOKO, omena.getY() * RUUDUN_KOKO, RUUDUN_KOKO, RUUDUN_KOKO);
 		
+		//Piirret‰‰n pelaajat ruudulle
 		for(int i=0, n=pelaajat.length; i<n; i++){
 			
 			grafiikka.setColor(pelaajat[i].getVari());
+			//Jokaisen pelaajan liitoskohdan kohdalle piirret‰‰n neliˆ
 			for(Koordinaatti k : pelaajat[i].getKoordinaatit()){
 				grafiikka.fillRect(k.getX() * RUUDUN_KOKO, k.getY() * RUUDUN_KOKO, RUUDUN_KOKO, RUUDUN_KOKO);
 			}
@@ -174,7 +210,7 @@ public class Lauta extends JPanel implements ActionListener{
 	}	
 	
 	/**
-	 * Luokka vastaa pelin kontrolleista
+	 * Luokka vastaa pelin kontrolleista (napinpainalluksista)
 	 *
 	 */
 	private class Painallukset extends KeyAdapter{
@@ -200,7 +236,7 @@ public class Lauta extends JPanel implements ActionListener{
 				}
 			}
 			//Jos peli on keskeytetty, v‰lilyˆnti jatkaa peli‰
-			if(!kaynnissa && nappi == KeyEvent.VK_SPACE)
+			if(nappi == KeyEvent.VK_SPACE && !loop.isRunning())
 				aloitaPeli();
 			
 		}
