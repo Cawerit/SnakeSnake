@@ -12,7 +12,7 @@ public class Peli {
 	 * Määrittää, kuinka monen pisteen (syödyt omenat) ero pelaajien välillä on oltava, 
 	 * jotta toinen voittaa kierroksen vain syötyjen omenoiden perusteella.
 	 */
-	public static int VOITTO_PISTEET = 5;
+	public static int VOITTO_PISTEET = 4;
 	
 	public static void main(String[] args) {
 				
