@@ -13,21 +13,21 @@ public class Lauta extends JPanel implements ActionListener{
 	/**
 	 * M‰‰ritt‰‰ pelialueen koon koordinaattien m‰‰r‰n‰. T‰t‰ muuttamalla voi suurentaa pelialueen kokoa.
 	 */
-	public static final int[] RUUDUT = new int[]{45, 45};
+	public static final int[] RUUDUT = new int[]{40, 40};
 	
 	
 	/**
 	 * M‰‰ritt‰‰, kuinka monta pikseli‰ jokainen koordinaatti on kooltaan piirrettyn‰ ruudulle.
 	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka suurena pelialue piirret‰‰n.
 	 */
-	public static final int RUUDUN_KOKO = 15;
+	public static final int RUUDUN_KOKO = 20;
 	
 	
 	/**
 	 * M‰‰ritt‰‰, kuinka monta kertaa sekunnissa pelin tila p‰ivitet‰‰n ja kuva uudelleenpiirret‰‰n ruudulle.
 	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka nopeasti peli kulkee.
 	 */
-	public static final double FPS = 10;
+	public static final double FPS = 12;
 	
 	
 	private static final Color OMENAN_VARI = Color.green;
@@ -65,7 +65,9 @@ public class Lauta extends JPanel implements ActionListener{
 				RUUDUN_KOKO * RUUDUT[0],
 				RUUDUN_KOKO * RUUDUT[1]) );
 		setFocusable(true);
+		
 		setBackground(Color.black);
+		
 		addKeyListener(new Painallukset());
 				
 	}
@@ -186,7 +188,7 @@ public class Lauta extends JPanel implements ActionListener{
 	@Override
 	public void paintComponent(Graphics grafiikka){
 		super.paintComponent(grafiikka);
-		
+				
 		// Piirret‰‰n omena ruudulle
 		grafiikka.setColor( OMENAN_VARI );
 		grafiikka.fillOval(omena.getX() * RUUDUN_KOKO, omena.getY() * RUUDUN_KOKO, RUUDUN_KOKO, RUUDUN_KOKO);
@@ -205,8 +207,8 @@ public class Lauta extends JPanel implements ActionListener{
 		grafiikka.setFont(fontti);
 		grafiikka.setColor(fonttiVari);
 		if(viesti[0] != null) grafiikka.drawString(viesti[0], 40, 40);
-		if(viesti[1] != null) grafiikka.drawString(viesti[1], 40, RUUDUT[0]*RUUDUN_KOKO);
-		
+		if(viesti[1] != null) grafiikka.drawString(viesti[1], 40, RUUDUT[1]*RUUDUN_KOKO - 10);
+				
 	}	
 	
 	/**

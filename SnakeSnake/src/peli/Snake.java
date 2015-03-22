@@ -141,9 +141,9 @@ public class Snake {
 	public boolean kuollut(Snake toinen){
 		Koordinaatti paa = getPaa();
 		return toinen.getKoordinaatit().size() - palat.size() >= Peli.VOITTO_PISTEET //Toisen pelaajan pisteet eiv‰t saa ylitt‰‰ k‰sitelt‰v‰n pelaajan pisteit‰
-				|| paa.collides(Lauta.RUUDUT[0]+1, Lauta.RUUDUT[1]+1)	//P‰‰ ei saa ylitt‰‰ laudan ulkorajoja
-				|| paa.collides(-1, -1) //P‰‰ ei saa ylitt‰‰ laudan sis‰rajoja
-				|| paa.collides(toinen.getKoordinaatit()) //P‰‰ ei saa koskea toiseen pelaajaan
-				|| paa.collides(getKroppa()); //P‰‰ ei saa osua muihin pelaajan osiin
+				|| paa.getX() >= Lauta.RUUDUT[0] || paa.getY() >= Lauta.RUUDUT[1]	//P‰‰ ei saa olla ulkorajalla
+				|| paa.getX() < 0 || paa.getY() < 0									//P‰‰ ei saa ylitt‰‰ laudan sis‰rajoja
+				|| paa.collides(toinen.getKoordinaatit()) 							//P‰‰ ei saa koskea toiseen pelaajaan
+				|| paa.collides(getKroppa()); 										//P‰‰ ei saa osua muihin pelaajan osiin
 	}
 }

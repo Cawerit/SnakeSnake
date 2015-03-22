@@ -29,9 +29,9 @@ public class Koordinaatti {
 	 * Staattinen luokkametodi, joka luo uuden Koordinaatin satunnaiseen sijaintiin m‰‰ritetyll‰ alueella
 	 * 
 	 * @param minX M‰‰ritt‰‰ alarajan toivotun alueen x-koordinaatille (inclusive)
-	 * @param maxX M‰‰ritt‰‰ yl‰rajan toivotun alueen x-koordinaatille (inclusive)
+	 * @param maxX M‰‰ritt‰‰ yl‰rajan toivotun alueen x-koordinaatille (exclusive)
 	 * @param minY M‰‰ritt‰‰ alarajan toivotun alueen y-koordinaatille (inclusive)
-	 * @param maxY M‰‰ritt‰‰ yl‰rajan toivotun alueen y-koordinaatille (inclusive)
+	 * @param maxY M‰‰ritt‰‰ yl‰rajan toivotun alueen y-koordinaatille (exclusive)
 	 * @param exclude M‰‰ritt‰‰ joukon koordinaatteja, jotka eiv‰t ole hyv‰ksytt‰vi‰ palautettavalle arvolle
 	 * 
 	 * @return Satunnaisesti valittu koordinaatti toivotulta alueelta
@@ -41,8 +41,8 @@ public class Koordinaatti {
 		int x, y;
 		boolean ok = false;
 		do{
-			x = r.nextInt(maxX-minX+1)+minX;//Random luku v‰lilt‰ minX-maxX (molemmat inclusive)
-			y = r.nextInt(maxY-minY+1)+minY;//Random luku v‰lilt‰ minY-maxY (molemmat inclusive)
+			x = r.nextInt(maxX-minX)+minX;//Random luku v‰lilt‰ (minX-maxX]
+			y = r.nextInt(maxY-minY)+minY;//Random luku v‰lilt‰ (minY-maxY]
 			ok = true;
 			
 			for(Koordinaatti k : exclude){
