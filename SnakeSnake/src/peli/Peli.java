@@ -19,7 +19,8 @@ public class Peli {
 	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable(){
-				public void run(){
+			public void run(){
+				//Käynnistetään peli
 				Lauta pelilauta = new Lauta();
 				new Ikkuna(pelilauta);
 				pelilauta.aloitaPeli();
