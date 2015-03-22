@@ -57,23 +57,6 @@ public class Koordinaatti {
 	}
 	
 	/**
-	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun X- TAI Y-koordinaattien rivin kanssa
-	 * <br>Esimerkiksi: 
-	 * <br><code>
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 0 ); // true		<br>
-	 * (new Koordinaatti( 0, 0 )).collides( 0, 1 ); // true		<br>
-	 * (new Koordinaatti( 0, 0 )).collides( 2, 1 ); // false	<br>
-	 * </code>
-	 * 
-	 * @param X x-arvo, johon t‰m‰n koordinaatin x-arvoa verrataan
-	 * @param Y y-arvo, johon t‰m‰n koordinaatin y-arvoa verrataan
-	 * @return Tieto siit‰, onko nykyinen koordinaatti annetulla alueella
-	 * 
-	 */
-	public boolean collides(int X, int Y){
-		return (getX() == X || getY() == Y );
-	}
-	/**
 	 * Tarkistaa, onko t‰m‰ koordinaatti p‰‰llekk‰in annetun koordinaatin kanssa
 	 * <br>Esimerkiksi: 
 	 * <br><code>

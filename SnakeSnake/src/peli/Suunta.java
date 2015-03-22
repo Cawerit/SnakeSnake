@@ -46,9 +46,9 @@ public enum Suunta {
 	 * 
 	 * Esimerkiksi:
 	 * <br><code>
-	 * Suunta.VASEN.isOpposite( Suunta.OIKEA ); // => true
-	 * Suunta.VASEN.isOpposite( Suunta.ALAS ); // => false
-	 * Suunta.OIKEA.isOpposite( Suunta.VASEN ); // => true
+	 * Suunta.VASEN.isOpposite( Suunta.OIKEA ); // true
+	 * Suunta.VASEN.isOpposite( Suunta.ALAS );  // false
+	 * Suunta.OIKEA.isOpposite( Suunta.VASEN ); // true
 	 * </code>
 	 * 
 	 * @param toinen Suunta, johon k‰sitelt‰v‰‰ suuntaa verrataan

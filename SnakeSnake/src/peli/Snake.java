@@ -23,7 +23,7 @@ public class Snake {
 	private Suunta suunta;
 	/**
 	 * Kertoo, onko pelaajan suunta asetettu kertaalleen tällä päivityskierroksella
-	 * @see setSuunta(Suunta)
+	 * @see #setSuunta(Suunta)
 	 */
 	public boolean suuntaAsetettu;
 	
