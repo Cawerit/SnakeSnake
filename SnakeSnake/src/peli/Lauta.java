@@ -8,19 +8,24 @@ import javax.swing.Timer;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * Luokka m‰‰ritt‰‰ pelattavan alueen ja vastaa pelin tilasta ja sen piirt‰misest‰ ikkunaan.
+ *
+ */
+@SuppressWarnings("serial")
 public class Lauta extends JPanel implements ActionListener{
 	
 	/**
-	 * M‰‰ritt‰‰ pelialueen koon koordinaattien m‰‰r‰n‰. T‰t‰ muuttamalla voi suurentaa pelialueen kokoa.
+	 * M‰‰ritt‰‰ pelialueen koon koordinaattien m‰‰r‰n‰. T‰t‰ muuttamalla voi suurentaa pelialueen loogista aluetta.
 	 */
-	public static final int[] RUUDUT = new int[]{40, 40};
+	public static final int RUUDUT = 40;
 	
 	
 	/**
 	 * M‰‰ritt‰‰, kuinka monta pikseli‰ jokainen koordinaatti on kooltaan piirrettyn‰ ruudulle.
-	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka suurena pelialue piirret‰‰n.
 	 */
-	public static final int RUUDUN_KOKO = 20;
+	private int ruudunKoko;
 	
 	
 	/**
@@ -28,6 +33,11 @@ public class Lauta extends JPanel implements ActionListener{
 	 * T‰t‰ muuttamalla voi muuttaa sit‰, kuinka nopeasti peli kulkee.
 	 */
 	public static final double FPS = 12;
+	
+	/**
+	 * M‰‰ritt‰‰, mink‰ kokoisia pelaajat ovat pelin alkaessa.
+	 */
+	private static final int aloitusKoko = 8;
 	
 	
 	private static final Color OMENAN_VARI = Color.green;
@@ -42,10 +52,6 @@ public class Lauta extends JPanel implements ActionListener{
 	private String[] viesti;
 	private int[] pisteet;
 	
-	/**
-	 * M‰‰ritt‰‰, mink‰ kokoisia pelaajat ovat pelin alkaessa.
-	 */
-	private static final int aloitusKoko = 10;
 		
 	/**
 	 * Luokka vastaa pelin k‰ynnist‰misest‰, logiikasta ja sen piirt‰misest‰ Ikkuna-luokan muodostamaan
@@ -59,17 +65,21 @@ public class Lauta extends JPanel implements ActionListener{
 		fontti = new Font("Arial", 1, 30);
 		fonttiVari = Color.white;
 		viesti = new String[2];
-		
-		//Asetetaan laudalle oikea koko
-		setPreferredSize(new Dimension(
-				RUUDUN_KOKO * RUUDUT[0],
-				RUUDUN_KOKO * RUUDUT[1]) );
 		setFocusable(true);
 		
-		setBackground(Color.black);
-		
+		setBackground(Color.black);		
 		addKeyListener(new Painallukset());
 				
+	}
+	/**
+	 * Asettaa pelattavalle alueelle "toivotun" koon, jonka perusteella ikkuna voi m‰‰ritt‰‰ oman kokonsa.
+	 * Samoin piirrett‰vien ruutujen koko m‰‰r‰ytyy t‰m‰n koon ja ruutujen m‰‰r‰n mukaan.
+	 * 
+	 * @param koko M‰‰ritt‰‰ korkeuden ja leveyden neliˆnmuotoiselle pelialueelle
+	 */
+	public void setKoko(int koko){
+		setPreferredSize(new Dimension(koko, koko));
+		ruudunKoko = koko / RUUDUT;
 	}
 	
 	/**
@@ -83,14 +93,14 @@ public class Lauta extends JPanel implements ActionListener{
 		//ja pelaajien v‰riin
 		
 		pelaajat[0] = new Snake( 
-				new Koordinaatti(0, RUUDUT[1]/2), //Pelaajan 1 aloituskohta on vasemmassa reunassa kent‰n puolessa v‰liss‰
+				new Koordinaatti(0, RUUDUT/2), //Pelaajan 1 aloituskohta on vasemmassa reunassa kent‰n puolessa v‰liss‰
 				aloitusKoko,
 				Suunta.OIKEA,				 	  //Pelaaja1 l‰htee liikkeelle oikealle, kohti ikkunan vasenta laitaa
 				Color.red						  //Pelaajan 1 v‰ri on punainen
 				);
 		
 		pelaajat[1] = new Snake(
-				new Koordinaatti(RUUDUT[0], RUUDUT[1]/2), //Pelaajan 2 aloituskohta on oikeassa reunassa kent‰n puolessa v‰liss‰
+				new Koordinaatti(RUUDUT, RUUDUT/2), //Pelaajan 2 aloituskohta on oikeassa reunassa kent‰n puolessa v‰liss‰
 				aloitusKoko,
 				Suunta.VASEN,
 				Color.blue
@@ -191,7 +201,7 @@ public class Lauta extends JPanel implements ActionListener{
 				
 		// Piirret‰‰n omena ruudulle
 		grafiikka.setColor( OMENAN_VARI );
-		grafiikka.fillOval(omena.getX() * RUUDUN_KOKO, omena.getY() * RUUDUN_KOKO, RUUDUN_KOKO, RUUDUN_KOKO);
+		grafiikka.fillOval(omena.getX() * ruudunKoko, omena.getY() * ruudunKoko, ruudunKoko, ruudunKoko);
 		
 		//Piirret‰‰n pelaajat ruudulle
 		for(int i=0, n=pelaajat.length; i<n; i++){
@@ -199,7 +209,7 @@ public class Lauta extends JPanel implements ActionListener{
 			grafiikka.setColor(pelaajat[i].getVari());
 			//Jokaisen pelaajan liitoskohdan kohdalle piirret‰‰n neliˆ
 			for(Koordinaatti k : pelaajat[i].getKoordinaatit()){
-				grafiikka.fillRect(k.getX() * RUUDUN_KOKO, k.getY() * RUUDUN_KOKO, RUUDUN_KOKO, RUUDUN_KOKO);
+				grafiikka.fillRect(k.getX() * ruudunKoko, k.getY() * ruudunKoko, ruudunKoko, ruudunKoko);
 			}
 			
 		}
@@ -207,7 +217,7 @@ public class Lauta extends JPanel implements ActionListener{
 		grafiikka.setFont(fontti);
 		grafiikka.setColor(fonttiVari);
 		if(viesti[0] != null) grafiikka.drawString(viesti[0], 40, 40);
-		if(viesti[1] != null) grafiikka.drawString(viesti[1], 40, RUUDUT[1]*RUUDUN_KOKO - 10);
+		if(viesti[1] != null) grafiikka.drawString(viesti[1], 40, RUUDUT*ruudunKoko - 10);
 				
 	}	
 	
@@ -247,15 +257,15 @@ public class Lauta extends JPanel implements ActionListener{
 	
 	/**
 	 * Arpoo omena-muuttujaan uuden koordinaatin. 
-	 * Koordinaatin X-arvoksi hyv‰ksyt‰‰n kokonaisluvut v‰lilt‰ (0, RUUDUT[0])
-	 * ja Y-arvoksi hyv‰ksyt‰‰n kokonaisluvut v‰lilt‰ (0, RUUDUT[1]),
+	 * Koordinaatin X-arvoksi hyv‰ksyt‰‰n kokonaisluvut v‰lilt‰ (0, RUUDUT)
+	 * ja Y-arvoksi hyv‰ksyt‰‰n kokonaisluvut v‰lilt‰ (0, RUUDUT),
 	 * poislukien molempien pelaajien koordinaatit (omena ei voi ilmesty‰ pelaajan kohdalle)
 	 * 
 	 */
 	private void arvoOmena(){
 		ArrayList<Koordinaatti> yhdistetty = new ArrayList<Koordinaatti>( pelaajat[0].getKoordinaatit() );
 		yhdistetty.addAll( pelaajat[1].getKoordinaatit() );
-		omena = Koordinaatti.random(0, RUUDUT[0], 0, RUUDUT[1], yhdistetty);
+		omena = Koordinaatti.random(0, RUUDUT, 0, RUUDUT, yhdistetty);
 	}
 	
 }

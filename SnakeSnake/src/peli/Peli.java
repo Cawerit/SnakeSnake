@@ -1,5 +1,7 @@
 package peli;
 
+import java.awt.EventQueue;
+
 /**
  * Alustaa ikkunan, sekä pelilaudan ja aloittaa pelin
  * 
@@ -15,10 +17,15 @@ public class Peli {
 	public static int VOITTO_PISTEET = 4;
 	
 	public static void main(String[] args) {
-				
-		Lauta pelilauta = new Lauta();
-		new Ikkuna(pelilauta);
-		pelilauta.aloitaPeli();
+		
+		EventQueue.invokeLater(new Runnable(){
+				public void run(){
+				Lauta pelilauta = new Lauta();
+				new Ikkuna(pelilauta);
+				pelilauta.aloitaPeli();
+			}
+		});
+
 	}
 	
 }

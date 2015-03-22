@@ -1,6 +1,5 @@
 package peli;
 import java.util.Collection;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
